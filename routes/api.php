@@ -30,7 +30,7 @@ Route::group(['prefix' => 'auth'], function ()
 });
 
 Route::group(
-    ['middleware' =>[ 'auth:api' , 'checkLang']],function ()  {
+    ['middleware' => [ 'auth' , 'checkLang']],function ()  {
         Route::apiResource('/categories',CategoryController::class);
         Route::apiResource('/posts',PostController::class);
          

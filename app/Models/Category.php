@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\RedirectUrlTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +15,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Category extends Model implements TranslatableContract
 {
-    use HasFactory;
-    
-    use Translatable;
+    use HasFactory, Translatable ,RedirectUrlTrait ;
 
     public $fillable = ['slug'];
   
@@ -42,7 +41,6 @@ class Category extends Model implements TranslatableContract
                         ->label(__('Name') . ' (' . $language['native'] . ')')
                         ->placeholder(__('Enter Name'))
                         ->hintIcon('heroicon-m-language')
-                        ->required()
                         ->maxLength(50)
                         
                 ]),

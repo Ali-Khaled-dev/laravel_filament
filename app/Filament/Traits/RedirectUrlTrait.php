@@ -2,7 +2,7 @@
 
 namespace App\Filament\Traits;
 
-use Filament\Actions\DeleteAction;
+use Closure;
 
 trait RedirectUrlTrait{
 
@@ -12,11 +12,5 @@ trait RedirectUrlTrait{
     
     }
 
-     protected function getHeaderAction()
-    {
-        
-            DeleteAction::make();
-    
-    }
 
 }
