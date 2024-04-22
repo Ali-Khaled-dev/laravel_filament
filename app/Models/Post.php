@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\InputsTrait;
+use App\Filament\Traits\RedirectUrlTrait;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TagsInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -121,15 +123,10 @@ class Post extends Model implements TranslatableContract, HasMedia
                 Tabs::make('Tabs')
                         ->tabs(fn () => array_map(
                             fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
-                                
-                                TextInput::make($locale . '.title')
-                                    ->label(__('Title') . ' (' . $language['native'] . ')')
-                                    ->placeholder(__('Enter Title'))
-                                    ->hintIcon('heroicon-m-language')
-                                    ->required()
-                                    ->maxLength(50)
-                                    ->columns(6),
-        
+                              
+                                InputsTrait::input($locale . '.title', __('Title') . ' (' . $language['native'] . ')',
+                                __('Enter Title'),'heroicon-m-language')->maxLength(50)->columns(6), 
+
                                 MarkdownEditor::make($locale .'.content')
                                 ->label(__('Content' ) . ' (' . $language['native'] . ')')
                                 ->required(), 
@@ -139,40 +136,11 @@ class Post extends Model implements TranslatableContract, HasMedia
                                 ))->columnSpan(1),
                                 Section::make(__('Secondary information'))->schema([
         
-                                    SpatieMediaLibraryFileUpload::make('image')
-                                    ->label(__('Image'))
-                                    ->image()
-                                    ->conversion('thumb')
-                                    ->required()
-                                    ->removeUploadedFileButtonPosition('right')
-                                    ->maxSize(1024)
-                                    ->collection('posts')
-                                    // ->placeholder(_("Drag & Drop your image or <span class='filepond--label-action' tabindex='0'> Browse </span>"))
-                                    ->hintIcon('heroicon-o-information-circle')
-                                    ->hintColor('secondary')
-                                    ->hintIconTooltip(__('Recommended dimensions: 900x420'))
-                                    ->imageEditor()
-                                    ->imageCropAspectRatio('1:1')
-                                    ->panelAspectRatio('1:1')
-                                    ->panelLayout('compact'),
-        
-                                    TextInput::make('slug')
-                                        ->label(__('Slug'))
-                                        ->label(__('Slug'))
-                                        ->placeholder(__('Enter Slug'))
-                                        ->hintIcon('heroicon-m-link')
-                                        ->required(),
-        
-                                     TagsInput::make('tags')
-                                         ->label(__('Tags'))
-                                         ->color('danger')
-                                         ->required(),
-         
-                                   
-                                     Checkbox::make('published')->label(__('published')),
-                                     Select::make('author')
-                                         ->label(__('Authors'))
-                                         ->relationship('authors','name'),
+                                  InputsTrait::ImageUpload('image',_("Drag Drop your image or Browse")),
+                                  InputsTrait::input('slug',__('Slug'),__('Enter Slug'),'heroicon-m-link'),
+                                  InputsTrait::input('tags',__('Tags'),__('Enter Slug'),'heroicon-m-tag'),
+                                  Checkbox::make('published')->label(__('published')),    
+                                  InputsTrait::select('authors',__('Authors'),'authors','name'),
                                         
                                 ])->columns(1)->columnSpan(1),
                                

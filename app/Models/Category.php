@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
@@ -38,18 +39,19 @@ class Category extends Model implements TranslatableContract
             ->tabs(fn () => array_map(
                 fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
                     TextInput::make($locale . '.name')
-                        ->label(__('Name') . ' (' . $language['native'] . ')')
+                        ->label(__('Name') . '(' . $language['native'] . ')')
                         ->placeholder(__('Enter Name'))
                         ->hintIcon('heroicon-m-language')
                         ->maxLength(50)
+                        ->required()
                         
                 ]),
+        
                 LaravelLocalization::getLocalesOrder(),
                 array_keys(LaravelLocalization::getLocalesOrder())
             ))->columnSpanFull(),
         ]),
        ];    
-}
-
+   }
 
 }
