@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\InputsTrait;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\FileUpload;
@@ -42,11 +43,9 @@ class Review extends Model
                                 LaravelLocalization::getLocalesOrder(),
                                  array_keys(LaravelLocalization::getLocalesOrder())
                             ))->columnSpan(1),
-            
-                TextInput::make('review')
-                ->label(__('Review'))
-                ->integer()
-                ->required(),
+                    
+                            InputsTrait::input('review',__('Review')),
+               
                 ]),         
             ]),
         ];    

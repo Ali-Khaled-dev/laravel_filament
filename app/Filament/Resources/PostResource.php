@@ -6,12 +6,14 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers\AuthorsRelationManager;
 use App\Filament\Resources\PostResource\RelationManagers\CommentRelationManager;
+use App\Filament\Resources\SlugResource\RelationManagers\CategoryRelationManager;
 use App\Models\Post;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
@@ -26,18 +28,9 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TagsInput;
-use Filament\Support\Enums\IconPosition;
-use Filament\Tables\Columns\ColorColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Filters\TrashedFilter;
-use Illuminate\Testing\Constraints\SoftDeletedInDatabase;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Filament\Resources\SoftDeleted;
-use Filament\Actions\CreateAction;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Support\Enums\ActionSize;
@@ -60,9 +53,9 @@ class PostResource extends Resource
         return $table 
             ->columns([
 
-                SpatieMediaLibraryImageColumn::make('avatar')
+                SpatieMediaLibraryImageColumn::make('image')
                 ->label(__('Image'))
-                ->conversion('thumb')
+                ->conversion('public')
                 ->collection('posts')
                 ->square()
                 ->height(75),
@@ -120,6 +113,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
+            CategoryRelationManager::class,
         ];
     }
 
@@ -149,6 +143,9 @@ class PostResource extends Resource
         return $infolist
         ->schema([
 
+            SpatieMediaLibraryImageEntry::make('image')
+            ->collection('posts'),
+
             TextEntry::make('content')
             ->translateLabel(), 
 
@@ -165,7 +162,7 @@ class PostResource extends Resource
             ->date()
             ->label(__('Date')),
 
-        ])->columns(1);
+        ])->columns(3);
     }
  
     public static function getPluralModelLabel(): string

@@ -37,11 +37,14 @@ class CategoryResource extends Resource
     { 
         return $table
             ->columns([
+
                     TextColumn::make('name')
                     ->translateLabel(),
+
                     TextColumn::make('created_at')
                     ->date()
                     ->label(__('Date')),
+                    
             ])
             ->filters([
                 //

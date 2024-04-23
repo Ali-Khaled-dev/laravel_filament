@@ -3,31 +3,18 @@
 namespace App\Models;
 
 use App\Filament\Traits\InputsTrait;
-use App\Filament\Traits\RedirectUrlTrait;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\TagsInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Components\ViewField;
-use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Schema;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Image\Manipulations;
 
 class Post extends Model implements TranslatableContract, HasMedia
 {
@@ -38,6 +25,7 @@ class Post extends Model implements TranslatableContract, HasMedia
         'slug', 
         'published',
     ];
+
     protected $appends = [
         'image',
         'thumb',
@@ -49,7 +37,7 @@ class Post extends Model implements TranslatableContract, HasMedia
     ];
 
     public $translatedAttributes = ['title', 'content'];
-
+    
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaCollection('posts');
@@ -87,6 +75,7 @@ class Post extends Model implements TranslatableContract, HasMedia
         $url = ($media) ? $media->getUrl('avatar') : null;
         return $url;
     }
+    
     public function reviews()
     {
 
@@ -122,25 +111,26 @@ class Post extends Model implements TranslatableContract, HasMedia
             ->schema([
                 Tabs::make('Tabs')
                         ->tabs(fn () => array_map(
+
                             fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
                               
-                                InputsTrait::input($locale . '.title', __('Title') . ' (' . $language['native'] . ')',
-                                __('Enter Title'),'heroicon-m-language')->maxLength(50)->columns(6), 
+                                InputsTrait::input($locale . '.title',  __('Title') . ' (' . $language['native'] . ')',
+                                 __('Enter Title'), 'heroicon-m-language')->maxLength(50)->columns(6), 
 
-                                MarkdownEditor::make($locale .'.content')
-                                ->label(__('Content' ) . ' (' . $language['native'] . ')')
-                                ->required(), 
+                                 InputsTrait::markEditor($locale .'.content',__('Content') . ' (' . $language['native'] . ')')
+                               
                                 ]),
                                     LaravelLocalization::getLocalesOrder(),
                                      array_keys(LaravelLocalization::getLocalesOrder())
                                 ))->columnSpan(1),
+
                                 Section::make(__('Secondary information'))->schema([
-        
-                                  InputsTrait::ImageUpload('image',_("Drag Drop your image or Browse")),
-                                  InputsTrait::input('slug',__('Slug'),__('Enter Slug'),'heroicon-m-link'),
-                                  InputsTrait::input('tags',__('Tags'),__('Enter Slug'),'heroicon-m-tag'),
-                                  Checkbox::make('published')->label(__('published')),    
-                                  InputsTrait::select('authors',__('Authors'),'authors','name'),
+    
+                                InputsTrait::imageUpload('posts'),
+                                InputsTrait::input('slug',__('Slug'),__('Enter Slug'),'heroicon-m-link'),
+                                InputsTrait::tags('tags',__('Tags'),__('Enter Tags'),'heroicon-m-tag'),
+                                InputsTrait::checkBox('published',__('published')),
+                                InputsTrait::select('authors',__('Authors'),'authors','name'),
                                         
                                 ])->columns(1)->columnSpan(1),
                                

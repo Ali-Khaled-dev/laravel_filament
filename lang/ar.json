@@ -14,7 +14,7 @@
     "Name": "الاسم",
     "Email": "البريد الإلكتروني",
     "Date": "التاريخ",
-    "Comment Tybe": "نمط التعليق",
+    "Comment Tybe": "نوع التعليق",
     "Title": "العنوان",
     "Color": "اللون",
     "Authors": "الكاتب",
@@ -30,6 +30,7 @@
     "Enter Name": "ادخل الاسم",
     "Enter Title": "ادخل العنوان",
     "Enter Slug": "ادخل الرابط",
+    "Enter Tags": "أدخل الوسوم",
     "Image": "الصورة",
     "Tags": "الوسوم",
     "published": "مفعل",
@@ -45,5 +46,6 @@
     "Recommended dimensions: 900x420": "900x420:الابعاد الموصى بها",
     "succsess": "تمت العملية بنجاح",
     "The Post Not Found": "هذا المنشور غير موجود",
-    "The Category not found": "هذا التصنيف غير موجود"
+    "The Category not found": "هذا التصنيف غير موجود",
+    "The :attribute required.": "هذا :attribute مطلوب"
 }

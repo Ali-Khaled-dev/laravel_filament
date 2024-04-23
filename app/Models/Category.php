@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\InputsTrait;
 use App\Filament\Traits\RedirectUrlTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,13 +39,9 @@ class Category extends Model implements TranslatableContract
             Tabs::make('Tabs')
             ->tabs(fn () => array_map(
                 fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
-                    TextInput::make($locale . '.name')
-                        ->label(__('Name') . '(' . $language['native'] . ')')
-                        ->placeholder(__('Enter Name'))
-                        ->hintIcon('heroicon-m-language')
-                        ->maxLength(50)
-                        ->required()
-                        
+                    InputsTrait::input($locale . '.name',__('Name') . '(' . $language['native'] . ')'
+                    ,__('Enter Name'),'heroicon-m-language')
+                    ->maxLength(50),          
                 ]),
         
                 LaravelLocalization::getLocalesOrder(),

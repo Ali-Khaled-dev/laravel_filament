@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SlugResource\Pages;
 use App\Filament\Resources\SlugResource\RelationManagers;
+use App\Filament\Resources\SlugResource\RelationManagers\CategoryRelationManager;
 use App\Models\Category;
 use App\Models\Slug;
 use Filament\Forms;
@@ -67,7 +68,7 @@ class SlugResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+          CategoryRelationManager::class,
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\InputsTrait;
+use Doctrine\DBAL\Query\Limit;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -32,16 +34,20 @@ class Slug extends Model
         return [
             Section::make()
             ->schema([
-                Section::make('')->schema([
+                Section::make()->schema([
                     Tabs::make('Tabs')
                     ->tabs(fn () => array_map(  
                         fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
+
+                            // InputsTrait::select('category_id',__('Title'),'category','name:' . $locale),
                             Select::make('category_id')
                             ->label(__('Title'))
-                           
+                            ->searchable()
+                            ->preload()
                             ->options(Category::all()->pluck('name:' . $locale, 'id'))
-                            ->required(),
-                            ]),
+                            ->required()
+                           ->optionsLimit(3)
+                             ]),
                                 LaravelLocalization::getLocalesOrder(),
                                  array_keys(LaravelLocalization::getLocalesOrder())
                             ))->columnSpan(1),

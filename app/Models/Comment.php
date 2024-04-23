@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Traits\InputsTrait;
 use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\MorphToSelect\Type;
 use Filament\Forms\Components\Section;
@@ -40,18 +41,10 @@ class Comment extends Model
             Section::make()
            ->schema([
                Section::make()->schema([
-
-                Select::make('user_id')
-                ->label(__('Name'))
-                ->relationship('user','name')
-                ->required(),
                 
-                TextInput::make('comment')
-                ->label(__('Comment'))
-                ->placeholder(__('Enter Comment'))
-
-                ->required()
-                ->columns(2),
+                InputsTrait::select('user_id', __('Name') , 'user' , 'name' ),
+               
+                InputsTrait::input('comment' , __('Comment') , __('Enter Comment'),'heroicon-m-chat-bubble-bottom-center-text')->columns(2),
    
                 MorphToSelect::make('commentable')
                 ->label(__('Comment Tybe'))
