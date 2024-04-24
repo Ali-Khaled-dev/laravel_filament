@@ -1,41 +1,16 @@
 <?php
 
 namespace App\Filament\Resources;
-
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
-use Filament\Forms;
-use Filament\Forms\Components\DatePicke;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Set;
-use Filament\Tables\Columns\TextInputColumn;
-use Illuminate\Support\HtmlString;
-use Spatie\Permission\Models\Role;
+
 
 class UserResource extends Resource
 {
@@ -45,45 +20,7 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-               Section::make()->schema([
-                TextInput::make('name')
-                ->translateLabel()
-                ->autofocus()
-                ->hintIcon('heroicon-m-user')
-                ->placeholder(__('Enter Name'))
-                ->required(),
-               
-                TextInput::make('email')
-                ->translateLabel()
-                ->email()
-                
-                ->required()
-                ->placeholder(__('Enter Email'))
-                ->hintIcon('heroicon-m-envelope')
-                ->unique(),
-                
-                TextInput::make('password')
-                ->translateLabel()
-                ->placeholder(__('Enter password'))
-                ->password()
-                ->required()
-                ->revealable()
-                ->hiddenOn(['edit','view']),
-
-                Select::make('roles')
-                ->translateLabel()
-                ->relationship('roles','name')
-                // ->getSearchResultsUsing(fn (string $search): array => Role::where('name', 'like', "%{$search}%")->limit(50)->pluck('name', 'id')->toArray())
-                ->getOptionLabelUsing(fn ($value): ?string => Str::headline($value))
-                ->searchable(['name'])
-                ->preload()
-                ->required(),
-           
-               ]),
-              
-        ]);
+        return $form ->schema(User::getForm());
     }
                 
     public static function table(Table $table): Table
@@ -99,8 +36,7 @@ class UserResource extends Resource
               TextColumn::make('name')
               ->translateLabel(),
 
-              TextInputColumn::make('email')
-              ->rules(['required', 'max:255']),
+              TextColumn::make('email'),
 
               TextColumn::make('roles.name')
               ->translateLabel()

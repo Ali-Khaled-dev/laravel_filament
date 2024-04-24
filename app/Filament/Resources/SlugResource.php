@@ -3,27 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SlugResource\Pages;
-use App\Filament\Resources\SlugResource\RelationManagers;
 use App\Filament\Resources\SlugResource\RelationManagers\CategoryRelationManager;
-use App\Models\Category;
 use App\Models\Slug;
-use Filament\Forms;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use GuzzleHttp\Psr7\UploadedFile;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Tabs;
 use Filament\Tables\Columns\ImageColumn;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 
 
 class SlugResource extends Resource

@@ -12,7 +12,7 @@ use Filament\Forms\Components\TextInput;
 
 trait InputsTrait{
 
-    static function imageUpload(string $collection) 
+    public static function imageUpload(string $collection) 
     {
      
         return SpatieMediaLibraryFileUpload::make('image')
@@ -37,7 +37,7 @@ trait InputsTrait{
 
     }
 
-    static function input(string $make, string $label, string $placeholder = null , $icon = null)
+    public static function input(string $make, string $label, string $placeholder = null , $icon = null)
     {
         
        return TextInput::make($make)
@@ -51,27 +51,30 @@ trait InputsTrait{
         
     }
 
-    static function select(string $make, string $label, string $relation_name, string $relation_column)
+    public static function select(string $make, $label = null, string $relation_name, string $relation_column)
     {
 
         return  Select::make($make)
-                ->label(__($label))
+                ->label($label)
                 ->relationship($relation_name,$relation_column)
                 ->searchable()
                 ->optionsLimit(3)
-                ->minItems(1)
-                ->maxItems(3)
-                ->getSearchResultsUsing(fn (string $search): array => $this::where($relation_column, 'like', "%{$search}%")->limit(3)->pluck($relation_column, 'id')->toArray())
                 ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck($relation_column, 'id')->toArray())
                 ->preload()
                 ->required()
                 ->validationMessages([
                     'required' => __('The :attribute required.'),
+                ])
+
+                ->createOptionForm([
+                    TextInput::make($relation_column)
+                        ->required(),
+    
                 ]);
     
     }
 
-    static function markEditor(string $make, string $label) 
+    public static function markEditor(string $make, string $label) 
     {
     
         return MarkdownEditor::make($make)
@@ -82,7 +85,7 @@ trait InputsTrait{
             ]);
     }
     
-    static function checkBox(string $make , string $label)
+    public static function checkBox(string $make , string $label)
     {
     
         return Checkbox::make($make)
@@ -95,7 +98,7 @@ trait InputsTrait{
     
     }
 
-    static function tags(string $make , string $label , string $place_holder = null , $icon = null) 
+    public static function tags(string $make , string $label , string $place_holder = null , $icon = null) 
     {
         return TagsInput::make($make)
                 ->label($label)

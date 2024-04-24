@@ -4,26 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Filament\Traits\InputsTrait;
 use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
+use Illuminate\Support\Str;
 class User extends Authenticatable implements JWTSubject
 
 
@@ -87,5 +79,24 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+
+    public static function getForm() {
+       
+        return [
+            
+                Section::make()->schema([
+
+                 InputsTrait::input('name',__('Name'),__('Enter Name'),'heroicon-m-user')->translateLabel(),
+                 InputsTrait::input('email',__('Email'),__('Enter Email'),'heroicon-m-envelope')->translateLabel()->email()->unique(),
+                 InputsTrait::input('password',__('Password'),__('Enter password'),'heroicon-m-Key')->translateLabel()->password()->revealable() ->hiddenOn(['edit','view']),
+                 InputsTrait::select('roles',__('Roles'),'roles' ,'name')->translateLabel()
+                 ->getSelectedRecordUsing(fn ($state): string =>Str::headline($state))
+                 ->searchable(['name'])
+                 ->hiddenOn('edit'),
+               
+                ]),
+        ];
     }
 }

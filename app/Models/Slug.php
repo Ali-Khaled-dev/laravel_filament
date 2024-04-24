@@ -39,14 +39,13 @@ class Slug extends Model
                     ->tabs(fn () => array_map(  
                         fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
 
-                            // InputsTrait::select('category_id',__('Title'),'category','name:' . $locale),
                             Select::make('category_id')
                             ->label(__('Title'))
                             ->searchable()
                             ->preload()
                             ->options(Category::all()->pluck('name:' . $locale, 'id'))
                             ->required()
-                           ->optionsLimit(3)
+                            ->optionsLimit(3)
                              ]),
                                 LaravelLocalization::getLocalesOrder(),
                                  array_keys(LaravelLocalization::getLocalesOrder())
