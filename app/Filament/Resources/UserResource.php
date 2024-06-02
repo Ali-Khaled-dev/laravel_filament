@@ -22,14 +22,12 @@ class UserResource extends Resource
     {
         return $form ->schema(User::getForm());
     }
-                
+
     public static function table(Table $table): Table
     {
         return $table
 
             ->columns([
- 
-               
               TextColumn::make('id')
               ->label('#'),
 
@@ -50,7 +48,7 @@ class UserResource extends Resource
              TextColumn::make('created_at')
              ->label(__('Date'))
              ->date(),
-             
+
             ])
             ->filters([
                 //
@@ -60,7 +58,7 @@ class UserResource extends Resource
                  Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ViewAction::make(),
-                
+
         ]),
 
             ])
@@ -109,7 +107,7 @@ class UserResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return User::count();
-           
+
     }
-     
+
 }

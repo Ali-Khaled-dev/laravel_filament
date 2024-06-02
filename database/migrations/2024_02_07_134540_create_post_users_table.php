@@ -8,19 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
+
     public function up(): void
     {
         Schema::create('post_users', function (Blueprint $table) {
             $table->id();
-           
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('artical_id');
+            $table->foreign('artical_id')->references('id')->on('articals')->onDelete('cascade');
             $table->foreignIdFor(Post::class);
             $table->timestamps();
         });
-
-       
     }
 
     public function down(): void

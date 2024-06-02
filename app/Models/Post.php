@@ -18,11 +18,11 @@ use Spatie\Image\Manipulations;
 
 class Post extends Model implements TranslatableContract, HasMedia
 {
-    use HasFactory, Translatable, SoftDeletes , InteractsWithMedia;
-        public $fillable   = [
-       'thumbanil',
+    use HasFactory, Translatable, SoftDeletes, InteractsWithMedia,InputsTrait;
+    public $fillable   = [
+        'thumbanil',
         'tags',
-        'slug', 
+        'slug',
         'published',
     ];
 
@@ -37,11 +37,11 @@ class Post extends Model implements TranslatableContract, HasMedia
     ];
 
     public $translatedAttributes = ['title', 'content'];
-    
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaCollection('posts');
-        
+
         $this->addMediaConversion('thumb')
             ->fit(Manipulations::FIT_CROP, 900, 420)
             ->nonQueued();
@@ -75,67 +75,70 @@ class Post extends Model implements TranslatableContract, HasMedia
         $url = ($media) ? $media->getUrl('avatar') : null;
         return $url;
     }
-    
+
     public function reviews()
     {
 
         return $this->hasMany(Review::class);
-    
     }
 
     public function category()
     {
-     
+
         return $this->belongsTo(CategoryTranslation::class);
-    
     }
-    
+
     public function comments()
     {
-    
-        return $this->morphMany(Comment::class,'commentable');
-    
+
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function authors()
     {
 
-        return $this->belongsToMany(User::class,'post_users')->withTimestamps();
-    
+        return $this->belongsToMany(Artical::class, 'post_users')->withTimestamps();
     }
+    // public function user(){
 
-    public static function getForm() {
-       
+    // }
+
+    public static function getForm()
+    {
+
         return [
             Section::make()
-            ->schema([
-                Tabs::make('Tabs')
+                ->schema([
+                    Tabs::make('Tabs')
                         ->tabs(fn () => array_map(
 
                             fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
-                              
-                                InputsTrait::input($locale . '.title',  __('Title') . ' (' . $language['native'] . ')',
-                                 __('Enter Title'), 'heroicon-m-language')->maxLength(50)->columns(6), 
 
-                                 InputsTrait::markEditor($locale .'.content',__('Content') . ' (' . $language['native'] . ')')
-                               
-                                ]),
-                                    LaravelLocalization::getLocalesOrder(),
-                                     array_keys(LaravelLocalization::getLocalesOrder())
-                                ))->columnSpan(1),
+                                InputsTrait::input(
+                                    $locale . '.title',
+                                    __('Title') . ' (' . $language['native'] . ')',
+                                    __('Enter Title'),
+                                    'heroicon-m-language'
+                                )->maxLength(50)->columns(6),
 
-                                Section::make(__('Secondary information'))->schema([
-    
-                                InputsTrait::imageUpload('posts'),
-                                InputsTrait::input('slug',__('Slug'),__('Enter Slug'),'heroicon-m-link'),
-                                InputsTrait::tags('tags',__('Tags'),__('Enter Tags'),'heroicon-m-tag'),
-                                InputsTrait::checkBox('published',__('published')),
-                                InputsTrait::select('authors',__('Authors'),'authors','name'),
-                                        
-                                ])->columns(1)->columnSpan(1),
-                               
-                 ])->columns(2),
-           ];    
-   }
+                                InputsTrait::markEditor($locale . '.content', __('Content') . ' (' . $language['native'] . ')')
 
+                            ]),
+                            LaravelLocalization::getLocalesOrder(),
+                            array_keys(LaravelLocalization::getLocalesOrder())
+                        ))->columnSpan(1),
+
+                    Section::make(__('Secondary information'))->schema([
+
+                        InputsTrait::imageUpload('posts'),
+                        InputsTrait::input('slug', __('Slug'), __('Enter Slug'), 'heroicon-m-link'),
+                        InputsTrait::tags('tags', __('Tags'), __('Enter Tags'), 'heroicon-m-tag'),
+                        InputsTrait::checkBox('published', __('published')),
+                        InputsTrait::select('authors', __('Authors'), 'authors', 'name'),
+
+                    ])->columns(1)->columnSpan(1),
+
+                ])->columns(2),
+        ];
+    }
 }

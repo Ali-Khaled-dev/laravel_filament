@@ -41,7 +41,7 @@ class PostController extends Controller
                  'slug' => $request -> slug,
                  'tags' => $request['tags'],
                  'published' => 1,
-                 'user_id' => $request-> user_id ,
+                 'user_id' => $request-> authors()->id ,
      
               ]);
  
@@ -49,7 +49,6 @@ class PostController extends Controller
         
         } catch (ModelNotFoundException $e) {
             return $this -> apiResponse( $e, '', 404);
-        
         }
       
     }

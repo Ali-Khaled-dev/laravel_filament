@@ -17,7 +17,6 @@
     "Comment Tybe": "نوع التعليق",
     "Title": "العنوان",
     "Color": "اللون",
-    "Authors": "الكاتب",
     "Content": "المحتوى",
     "Upload_File": "اضافة صورة",
     "Roles": "الصلاحيات",
@@ -47,5 +46,9 @@
     "succsess": "تمت العملية بنجاح",
     "The Post Not Found": "هذا المنشور غير موجود",
     "The Category not found": "هذا التصنيف غير موجود",
-    "The :attribute required.": "هذا :attribute مطلوب"
+    "The :attribute required.": "هذا :attribute مطلوب",
+    "Articals": "الكتاب",
+    "Artical": "الكاتب",
+    "Job": "الوظيفة",
+    "Enter Job": "ادخل الوظيفة"
 }

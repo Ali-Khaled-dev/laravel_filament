@@ -6,7 +6,6 @@ use App\Filament\Traits\InputsTrait;
 use App\Filament\Traits\RedirectUrlTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Filament\Forms\Components\Field;
@@ -20,15 +19,15 @@ class Category extends Model implements TranslatableContract
     use HasFactory, Translatable ,RedirectUrlTrait ;
 
     public $fillable = ['slug'];
-  
+
    public $translatedAttributes = ['name'];
 
 
-   public function posts()  
+   public function posts()
    {
-    
+
     return $this->hasMany(Post::class);
-   
+
    }
 
    public static function getForm() {
@@ -41,14 +40,14 @@ class Category extends Model implements TranslatableContract
                 fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
                     InputsTrait::input($locale . '.name',__('Name') . '(' . $language['native'] . ')'
                     ,__('Enter Name'),'heroicon-m-language')
-                    ->maxLength(50),          
+                    ->maxLength(50),
                 ]),
-        
+
                 LaravelLocalization::getLocalesOrder(),
                 array_keys(LaravelLocalization::getLocalesOrder())
             ))->columnSpanFull(),
         ]),
-       ];    
+       ];
    }
 
 }

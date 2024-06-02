@@ -16,15 +16,16 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Str;
+
 class User extends Authenticatable implements JWTSubject
 
 
 {
-  
+
 
     use HasApiTokens, HasFactory, Notifiable,  HasRoles, HasPanelShield;
-    
-   
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -56,14 +57,12 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    public function posts(){
-        return $this->belongsToMany(Post::class,'post_users')->withTimestamps();
-    }
-    
+
+
     public function comments()
     {
 
-        return $this->morphMany(Comment::class,'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function getJWTIdentifier()
@@ -82,21 +81,54 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public static function getForm() {
-       
-        return [
-            
-                Section::make()->schema([
+    public static function getForm()
+    {
 
-                 InputsTrait::input('name',__('Name'),__('Enter Name'),'heroicon-m-user')->translateLabel(),
-                 InputsTrait::input('email',__('Email'),__('Enter Email'),'heroicon-m-envelope')->translateLabel()->email()->unique(),
-                 InputsTrait::input('password',__('Password'),__('Enter password'),'heroicon-m-Key')->translateLabel()->password()->revealable() ->hiddenOn(['edit','view']),
-                 InputsTrait::select('roles',__('Roles'),'roles' ,'name')->translateLabel()
-                 ->getSelectedRecordUsing(fn ($state): string =>Str::headline($state))
-                 ->searchable(['name'])
-                 ->hiddenOn('edit'),
-               
-                ]),
+        return [
+
+            Section::make()->schema([
+
+                InputsTrait::input('name', __('Name'), __('Enter Name'), 'heroicon-m-user')
+                    ->translateLabel(),
+
+                InputsTrait::input('email', __('Email'), __('Enter Email'), 'heroicon-m-envelope')
+                    ->translateLabel()
+                    ->email()
+                    ->unique(),
+
+                InputsTrait::input('password', __('Password'), __('Enter password'), 'heroicon-m-Key')
+                    ->translateLabel()
+                    ->password()
+                    ->revealable()
+                    ->hiddenOn(['edit', 'view']),
+                    
+                InputsTrait::select('roles', __('Roles'), 'roles', 'name')
+                    ->translateLabel()
+                    ->searchable(['name'])
+                    ->hiddenOn('edit'),
+
+            ]),
         ];
     }
 }
+// use Filament\\Forms\\Components\\TextInput;
+
+// TextInput::make('username')
+// ->afterStateHydrated(function (TextInput $component, $state) {
+//     $component->state(ucwords($state))
+// });
+//
+// use Filament\Forms\Components\Select;
+// use App\Models\OrderStatus; // افتراضًا
+
+// Select::make('order_status')
+//     ->getSearchResultsUsing(function ($search) {
+//         return OrderStatus::where('name', 'like', "%$search%")->get();
+//     })
+//     ->getOptionLabelUsing(function ($status) {
+//         return ucwords($status->name);
+//     })
+//     ->native(false)
+//     ->searchable();
+
+//

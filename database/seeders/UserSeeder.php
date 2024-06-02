@@ -9,15 +9,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-  
+
     public function run(): void
     {
-       User::create([
+        User::create([
             'name' => 'Ali barakat',
             'email' => 'a@gmail.com',
             'password' => Hash::make('123456'),
-   
-       ])->assignRole('super_admin');
-        
+
+        ])->assignRole('super_admin');
+
+        User::create([
+            'name' => 'mohamad mohamad',
+            'email' => 'm@gmail.com',
+            'password' => Hash::make('123456'),
+
+        ])->assignRole('panel_userer');
     }
 }

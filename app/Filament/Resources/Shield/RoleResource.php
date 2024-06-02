@@ -43,16 +43,17 @@ class RoleResource extends Resource implements HasShieldPermissions
     {
         return $form
             ->schema([
-            Grid::make()
+                Grid::make()
                     ->schema([
                         Section::make()
                             ->schema([
                                 TextInput::make('name')
                                     ->label(__('filament-shield::filament-shield.field.name'))
+                                    ->formatStateUsing(fn ($state): string => Str::headline($state))
                                     ->unique(ignoreRecord: true)
                                     ->required()
                                     ->maxLength(255),
-                               TextInput::make('guard_name')
+                                TextInput::make('guard_name')
                                     ->label(__('filament-shield::filament-shield.field.guard_name'))
                                     ->default(Utils::getFilamentAuthGuard())
                                     ->nullable()
@@ -73,19 +74,19 @@ class RoleResource extends Resource implements HasShieldPermissions
                 Forms\Components\Tabs::make('Permissions')
                     ->contained()
                     ->tabs([
-                         Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.resources'))
-                             ->visible(fn (): bool => (bool) Utils::isResourceEntityEnabled())
-                             ->badge(static::getResourceTabBadgeCount())
-                             ->schema([
+                        Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.resources'))
+                            ->visible(fn (): bool => (bool) Utils::isResourceEntityEnabled())
+                            ->badge(static::getResourceTabBadgeCount())
+                            ->schema([
                                 Grid::make()
-                                     ->schema(static::getResourceEntitiesSchema())
+                                    ->schema(static::getResourceEntitiesSchema())
                                     ->columns(FilamentShieldPlugin::get()->getGridColumns()),
                             ]),
                         static::getTabFormComponentForPage(),
                         static::getTabFormComponentForWidget(),
                         static::getTabFormComponentForCustomPermissions(),
-                     ])
-                     ->columnSpan('full'),
+                    ])
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -142,8 +143,8 @@ class RoleResource extends Resource implements HasShieldPermissions
 
     public static function getModel(): string
     {
-            
-              return Utils::getRoleModel();
+
+        return Utils::getRoleModel();
     }
 
     public static function getModelLabel(): string
@@ -234,7 +235,7 @@ class RoleResource extends Resource implements HasShieldPermissions
     {
         return collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))
             ->flatMap(fn ($permission) => [
-                $permission . '_' . $entity['resource'] => FilamentShield::getLocalizedResourcePermissionLabel($permission),
+                $permission . ' ' . $entity['resource'] => FilamentShield::getLocalizedResourcePermissionLabel($permission),
             ])
             ->toArray();
     }
@@ -291,7 +292,7 @@ class RoleResource extends Resource implements HasShieldPermissions
         $resourcePermissions = collect();
         collect(FilamentShield::getResources())->each(function ($entity) use ($resourcePermissions) {
             collect(Utils::getResourcePermissionPrefixes($entity['fqcn']))->map(function ($permission) use ($resourcePermissions, $entity) {
-                $resourcePermissions->push((string) Str::of($permission . '_' . $entity['resource']));
+                $resourcePermissions->push((string) Str::of($permission . ' ' . $entity['resource']));
             });
         });
 
@@ -363,7 +364,7 @@ class RoleResource extends Resource implements HasShieldPermissions
                     record: $record
                 )
             )
-            ->dehydrated(fn ($state) => ! blank($state))
+            ->dehydrated(fn ($state) => !blank($state))
             ->bulkToggleable()
             ->gridDirection('row')
             ->columns(FilamentShieldPlugin::get()->getCheckboxListColumns())
