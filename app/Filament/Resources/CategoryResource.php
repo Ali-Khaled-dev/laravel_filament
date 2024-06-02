@@ -14,16 +14,16 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
-    
+
     public static function form(Form $form): Form
     {
-        
+
         return  $form->schema(Category::getForm());
-  
+
     }
 
     public static function table(Table $table): Table
-    { 
+    {
         return $table
             ->columns([
 
@@ -33,7 +33,7 @@ class CategoryResource extends Resource
                     TextColumn::make('created_at')
                     ->date()
                     ->label(__('Date')),
-                    
+
             ])
             ->filters([
                 //
@@ -73,12 +73,12 @@ class CategoryResource extends Resource
     public static function getModelLabel(): string
     {
         return __('Category');
-    }    
-   
+    }
+
     public static function getNavigationBadge(): ?string
     {
         return Category::count();
-           
+
     }
 
 }
