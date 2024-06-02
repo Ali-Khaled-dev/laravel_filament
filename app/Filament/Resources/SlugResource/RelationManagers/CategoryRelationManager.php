@@ -22,16 +22,20 @@ class CategoryRelationManager extends RelationManager
         return $form
             ->schema([
                 Tabs::make('Tabs')
-            ->tabs(fn () => array_map(
-                fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
-                    InputsTrait::input($locale . '.name',__('Name') . '(' . $language['native'] . ')'
-                    ,__('Enter Name'),'heroicon-m-language')
-                    ->maxLength(50),          
-                ]),
-        
-                LaravelLocalization::getLocalesOrder(),
-                array_keys(LaravelLocalization::getLocalesOrder())
-            ))
+                    ->tabs(fn () => array_map(
+                        fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
+                            InputsTrait::input(
+                                $locale . '.name',
+                                __('Name') . '(' . $language['native'] . ')',
+                                __('Enter Name'),
+                                'heroicon-m-language'
+                            )
+                                ->maxLength(50),
+                        ]),
+
+                        LaravelLocalization::getLocalesOrder(),
+                        array_keys(LaravelLocalization::getLocalesOrder())
+                    ))
             ]);
     }
 
