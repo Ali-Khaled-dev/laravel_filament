@@ -27,3 +27,6 @@ Livewire::setUpdateRoute(function ($handle) {
 });
 
 require __DIR__.'/auth.php';
+
+
+

@@ -23,7 +23,6 @@ class CategoryRequest extends FormRequest
     {
         return [
            'name' => 'required|unique:category_translation,name,'.$this->id,'category_id',
-
            'slug' =>'required|unique:categories,slug,'.$this->id,
         ];
     }
