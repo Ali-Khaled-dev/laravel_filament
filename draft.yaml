@@ -1,0 +1,7 @@
+models:
+  Widget:
+    id: id
+    name: string
+    created_at: timestamp
+    updated_at: timestamp
+

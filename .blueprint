@@ -1,0 +1,15 @@
+created:
+    - database/factories/WidgetFactory.php
+    - database/migrations/2024_06_06_132223_create_widgets_table.php
+    - app/Models/Widget.php
+models:
+    Artical: { name: string, job: string }
+    Category: { slug: 'string nullable' }
+    CategoryTranslation: { category_id: 'biginteger unsigned', locale: string, name: string }
+    Comment: { user_id: 'biginteger unsigned', commentable_type: string, commentable_id: 'biginteger unsigned', comment: string }
+    Post: { thumbanil: 'string nullable', slug: string, tags: 'text nullable', published: boolean }
+    PostTranslation: { post_id: 'biginteger unsigned', locale: string, title: string, content: text }
+    Review: { post_id: 'biginteger unsigned', review: integer }
+    Slug: { votes: 'biginteger nullable', photo: binary, category_id: 'biginteger unsigned', slug: string }
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
+    Widget: { id: id, name: string, created_at: timestamp, updated_at: timestamp }
