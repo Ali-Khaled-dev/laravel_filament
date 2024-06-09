@@ -80,9 +80,6 @@ class {$resourceName}Resource extends Resource
     $resourceDir = __DIR__ . "/app/Filament/Resources";
     $pageDir = __DIR__ . "/app/Filament/Resources/{$resourceName}Resource";
 
-    // if (!file_exists($pageDir)) {
-    //     mkdir($pageDir, 0777, true);
-    // }
 
     // create file resource
 

@@ -1,7 +1,12 @@
 models:
-  Widget:
+  Grid:
     id: id
     name: string
     created_at: timestamp
     updated_at: timestamp
 
+  Widget:
+    id: id
+    name: string
+    created_at: timestamp
+    updated_at: timestamp

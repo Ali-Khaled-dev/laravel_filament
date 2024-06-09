@@ -14,12 +14,28 @@ resources:
           name: name
           sortable: true
           searchable: true
+    relations: []
+    pages:
+      - name: List
+        icon: heroicon-o-view-list
+      - name: Create
+        icon: heroicon-o-plus
+      - name: Edit
+        icon: heroicon-o-pencil
+
+  Grid:
+    model: Grid
+    navigation_icon: heroicon-o-cube
+    form:
+      schema:
+    table:
+      columns:
         - type: TextColumn
-          name: created_at
+          name: id
           sortable: true
           searchable: true
         - type: TextColumn
-          name: updated_at
+          name: name
           sortable: true
           searchable: true
     relations: []
@@ -29,4 +45,4 @@ resources:
       - name: Create
         icon: heroicon-o-plus
       - name: Edit
-        icon: "heroicon-o-pencil"
+        icon: heroicon-o-pencil

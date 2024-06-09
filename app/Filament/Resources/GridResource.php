@@ -3,8 +3,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\WidgetResource\Pages;
-use App\Models\Widget;
+use App\Filament\Resources\GridResource\Pages;
+use App\Models\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
 
-class WidgetResource extends Resource
+class GridResource extends Resource
 {
-    protected static ?string $model = Widget::class;
+    protected static ?string $model = Grid::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
@@ -47,9 +47,9 @@ class WidgetResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListWidget::route('/'),
-            'create' => Pages\CreateWidget::route('/create'),
-            'edit' => Pages\EditWidget::route('/{record}/edit'),
+            'index' => Pages\ListGrid::route('/'),
+            'create' => Pages\CreateGrid::route('/create'),
+            'edit' => Pages\EditGrid::route('/{record}/edit'),
         ];
     }
 }
