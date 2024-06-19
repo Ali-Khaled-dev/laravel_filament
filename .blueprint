@@ -1,6 +1,9 @@
 created:
+    - database/factories/GridFactory.php
     - database/factories/WidgetFactory.php
-    - database/migrations/2024_06_06_132223_create_widgets_table.php
+    - database/migrations/2024_06_09_122009_create_grids_table.php
+    - database/migrations/2024_06_09_122010_create_widgets_table.php
+    - app/Models/Grid.php
     - app/Models/Widget.php
 models:
     Artical: { name: string, job: string }
@@ -13,3 +16,4 @@ models:
     Slug: { votes: 'biginteger nullable', photo: binary, category_id: 'biginteger unsigned', slug: string }
     User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
     Widget: { id: id, name: string, created_at: timestamp, updated_at: timestamp }
+    Grid: { id: id, name: string, created_at: timestamp, updated_at: timestamp }

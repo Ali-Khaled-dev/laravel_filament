@@ -186,6 +186,15 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'en_title' => 'title for english',
+        'ar_title' => 'title for arabic',
+        'en_content' => 'content for english',
+        'ar_content' => 'content for arabic',
+
+
+
+
+    ],
 
 ];
