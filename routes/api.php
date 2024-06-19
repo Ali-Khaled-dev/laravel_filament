@@ -8,32 +8,26 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['prefix' => 'auth'], function () 
-{
+Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);  
-   
-    Route::get('/users', function () 
-    {
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+
+    Route::get('/users', function () {
         $titles = DB::table('users')->pluck('name');
- 
+
         foreach ($titles as $title) {
             echo $title;
-           
         }
     });
-    
 });
 
 Route::group(
-    ['middleware' => [ 'auth' , 'checkLang']],function ()  {
-        Route::apiResource('/categories',CategoryController::class);
-        Route::apiResource('/posts',PostController::class);
-         
+    ['middleware' => ['checkLang']],
+    function () {
+        Route::apiResource('/categories', CategoryController::class);
+        Route::apiResource('/posts', PostController::class);
     }
 );
-
-
-
+// 'auth' ,
