@@ -7,11 +7,13 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Repositry\PostInterface;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
 
     protected $post;
+
     public function __construct(PostInterface $post)
     {
 
@@ -20,10 +22,11 @@ class PostController extends Controller
 
     public function index()
     {
+
         return $this->post->index();
     }
 
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
 
         return $this->post->create($request);
@@ -31,19 +34,19 @@ class PostController extends Controller
 
     public function show(string $id)
     {
+
         return $this->post->show($id);
     }
 
     public function update(PostRequest $request, string $id)
     {
 
-        return $this->post->update($request,$id);
-
+        return $this->post->update($request, $id);
     }
 
     public function destroy(string $id)
     {
-        return $this->post->delete($id);
 
+        return $this->post->delete($id);
     }
 }
