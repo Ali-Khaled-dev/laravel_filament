@@ -3,6 +3,7 @@
 namespace App\Repositry;
 
 use App\Http\Controllers\Api\ApiResponseTrait;
+use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Repositry\PostInterface;
@@ -19,6 +20,7 @@ class PostRepositry implements PostInterface
 
         return $this->apiResponse($posts, __('succsess'), 200);
     }
+
     public function create(Request $request)
     {
         try {

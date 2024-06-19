@@ -14,6 +14,10 @@ class ApiProvider extends ServiceProvider
             'App\Repositry\PostInterface',
             'App\Repositry\PostRepositry'
         );
+        $this->app->bind(
+            'App\Repositry\CategoryInterface',
+            'App\Repositry\CategoryRepositry'
+        );
     }
 
 

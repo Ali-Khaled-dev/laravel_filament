@@ -2,19 +2,13 @@
 
 namespace App\Repositry;
 
-use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
-interface PostInterface
+interface CategoryInterface
 {
-
     public function index();
-
-    public function create(Request $request);
-
+    public function store(Request $request);
     public function show(string $id);
-
     public function update(Request $request, string $id);
-
-    public function delete(string $id);
+    public function destroy(string $id);
 }
