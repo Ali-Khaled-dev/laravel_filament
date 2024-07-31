@@ -23,8 +23,7 @@ class Artical extends Model implements TranslatableContract, HasMedia
 
 
     public $fillable = [
-        'tag_id',
-        'author_id',
+        'tag_id'
     ];
 
 
@@ -40,6 +39,7 @@ class Artical extends Model implements TranslatableContract, HasMedia
     protected $casts = [
         'id' => 'integer',
         'meta_keywords' => 'array',
+        'tag_id' => 'array'
 
     ];
 
@@ -83,7 +83,7 @@ class Artical extends Model implements TranslatableContract, HasMedia
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'artical_author');
+        return $this->belongsToMany(Tag::class, 'artical_tag');
     }
 
     public function authors()
@@ -124,17 +124,17 @@ class Artical extends Model implements TranslatableContract, HasMedia
 
                             InputsTrait::markEditor($locale . '.descreption', __('Descreption') . ' (' . $language['native'] . ')'),
 
-                            InputsTrait::select('tag_id', __('Tags'), 'tags', 'name')->options(Tag::all()->pluck('name:' . $locale, 'id'))->multiple(),
+                            InputsTrait::select('tag_id', __('Tags'))->relationship('tags', 'name')->options(Tag::all()->pluck('name:' . $locale, 'id'))->multiple(),
                             //
                             InputsTrait::tags($locale . '.meta_keywords', __('Meta keywords') . ' (' . $language['native'] . ')'),
                         ]),
-                        // ->separator(',')
+
                         LaravelLocalization::getLocalesOrder(),
                         array_keys(LaravelLocalization::getLocalesOrder())
                     )),
 
 
-                // InputsTrait::select('author_id', __('Authors'), 'authors', 'name'),
+                InputsTrait::select('authors', __('Authors'))->relationship('authors', 'name')->options(Author::all()->pluck('name', 'id')),
 
 
             ])->columns(2),
