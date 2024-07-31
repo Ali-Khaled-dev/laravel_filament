@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\ArticalResource\Pages;
 
 use App\Filament\Resources\ArticalResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions;
+
 
 class ListArticals extends ListRecords
 {
