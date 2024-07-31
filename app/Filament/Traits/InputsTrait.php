@@ -2,12 +2,15 @@
 
 namespace App\Filament\Traits;
 
+use Blueprint\Contracts\Model;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Filament\Forms\Components\Actions\Action;
 
 trait InputsTrait
 {
@@ -50,7 +53,7 @@ trait InputsTrait
             ]);
     }
 
-    public static function select(string $make, $label = null, string $relation_name, string $relation_column)
+    public static function select(string $make, $label = null, string $relation_name = null, string $relation_column = null)
     {
 
         return  Select::make($make)
@@ -58,19 +61,25 @@ trait InputsTrait
             ->relationship($relation_name, $relation_column)
             ->searchable()
             ->optionsLimit(3)
-            ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck($relation_column, 'id')->toArray())
+            // ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck($relation_column, 'id')->toArray())
             ->preload()
             ->required()
             ->validationMessages([
                 'required' => __('The :attribute required.'),
-            ])
+            ])->createOptionAction(
+                fn (Action $action) => $action->modalWidth('3xl')
+            )
 
-            ->createOptionForm([
-                TextInput::make($relation_column)
-                    ->required(),
+            ->createOptionForm(
+                [
 
-            ]);
+                    TextInput::make($make)->label($label)
+                        ->required(),
+                ]
+            );
     }
+
+
 
     public static function markEditor(string $make, string $label)
     {
@@ -104,5 +113,14 @@ trait InputsTrait
             ->validationMessages([
                 'required' => __('The :attribute required.'),
             ]);
+    }
+
+    static function formatText($text)
+    {
+        $str_preg = ['/', '.', '(?=[A-Z])', '/u', ' '];
+
+        $formattedText = str_replace($str_preg, '-', $text);
+
+        return $formattedText;
     }
 }
