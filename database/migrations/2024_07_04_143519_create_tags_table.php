@@ -11,27 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
 
-        Schema::create('category_translation', function(Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('category_id');
+
+        Schema::create('tag_translation', function (Blueprint $table) {
+            $table->unsignedBigInteger('tag_id');
             $table->string('locale');
             $table->string('name');
-            $table->unique(['locale', 'category_id']);
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unique(['locale', 'tag_id']);
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
      */
+    
     public function down(): void
     {
-        Schema::dropIfExists('category_translation');
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('tags');
     }
 };
