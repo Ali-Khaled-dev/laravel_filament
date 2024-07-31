@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryTranslation extends Model
+class TagTranslation extends Model
 {
     use HasFactory;
 
     public $fillable  = ['name'];
 
-    public $table = 'category_translation';
+    public $table = 'tag_translation';
 
     public $timestamps = false;
-
-
 }

@@ -58,13 +58,6 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-
-    public function comments()
-    {
-
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -101,7 +94,7 @@ class User extends Authenticatable implements JWTSubject
                     ->password()
                     ->revealable()
                     ->hiddenOn(['edit', 'view']),
-                    
+
                 InputsTrait::select('roles', __('Roles'), 'roles', 'name')
                     ->translateLabel()
                     ->searchable(['name'])
@@ -111,24 +104,4 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 }
-// use Filament\\Forms\\Components\\TextInput;
 
-// TextInput::make('username')
-// ->afterStateHydrated(function (TextInput $component, $state) {
-//     $component->state(ucwords($state))
-// });
-//
-// use Filament\Forms\Components\Select;
-// use App\Models\OrderStatus; // افتراضًا
-
-// Select::make('order_status')
-//     ->getSearchResultsUsing(function ($search) {
-//         return OrderStatus::where('name', 'like', "%$search%")->get();
-//     })
-//     ->getOptionLabelUsing(function ($status) {
-//         return ucwords($status->name);
-//     })
-//     ->native(false)
-//     ->searchable();
-
-//

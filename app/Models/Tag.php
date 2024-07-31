@@ -3,34 +3,43 @@
 namespace App\Models;
 
 use App\Filament\Traits\InputsTrait;
-use App\Filament\Traits\RedirectUrlTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
-use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Category extends Model implements TranslatableContract
+class Tag extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
-    public $fillable = ['slug'];
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
     public $translatedAttributes = ['name'];
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+    ];
 
     public function articals()
     {
-
-        return $this->hasMany(Artical::class);
+        return $this->belongsToMany(Artical::class, 'artical_author');
     }
 
     public static function getForm()
     {
-
         return [
             Section::make()
                 ->schema([

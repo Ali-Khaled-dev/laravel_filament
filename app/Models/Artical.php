@@ -2,32 +2,50 @@
 
 namespace App\Models;
 
-use App\Filament\Traits\InputsTrait;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Filament\Traits\InputsTrait;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Set;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Image\Manipulations;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Artical extends Model implements HasMedia
+class Artical extends Model implements TranslatableContract, HasMedia
 {
-    use HasFactory, InputsTrait, InteractsWithMedia;
-
-    public $fillable = ['name', 'job'];
+    use HasFactory, Translatable, InteractsWithMedia;
 
 
+    public $fillable = [
+        'tag_id',
+        'author_id',
+    ];
 
-    public function posts()
-    {
-        return $this->belongsToMany(Post::class, 'post_users')->withTimestamps();
-    }
+
+    public $translatedAttributes = [
+        'title',
+        'slug',
+        'short_descreption',
+        'descreption',
+        'meta_keywords',
+    ];
+
+
+    protected $casts = [
+        'id' => 'integer',
+        'meta_keywords' => 'array',
+
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaCollection('artical');
+        $this->addMediaCollection('articals');
 
         $this->addMediaConversion('thumb')
             ->fit(Manipulations::FIT_CROP, 900, 420)
@@ -41,7 +59,6 @@ class Artical extends Model implements HasMedia
             ->fit(Manipulations::FIT_CROP, 360, 139)
             ->nonQueued();
     }
-
 
     public function getImageAttribute(): string|null
     {
@@ -64,20 +81,64 @@ class Artical extends Model implements HasMedia
         return $url;
     }
 
-    static public function getForm()
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'artical_author');
+    }
+
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class, 'artical_author');
+    }
+
+
+    public static function getForm()
     {
         return [
-            Grid::make(3)->schema([
-                Section::make()
-                    ->schema([
-                        InputsTrait::input('name', 'Name', __('Enter Name'))->translateLabel(),
-                        InputsTrait::input('job', 'Job', __('Enter Job'))->translateLabel(),
+            Section::make()->schema([
+                // InputsTrait::imageUpload('articals'),
+                Tabs::make('Tabs')
+                    ->tabs(fn () => array_map(
+                        fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
 
-                    ])->columnSpan(2),
-                Section::make()->schema([
-                    InputsTrait::imageUpload('artical'),
-                ])->columnSpan(1),
-            ]),
+                            InputsTrait::input(
+                                $locale . '.title',
+                                __('Title') . '(' . $language['native'] . ')',
+                                __('Enter Title'),
+                                'heroicon-m-language'
+                            )->maxLength(50)
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function (Set $set, string $state) use ($locale) {
+                                    $set($locale . '.slug', InputsTrait::formatText($state));
+                                }),
+
+                            InputsTrait::input(
+                                $locale . '.slug',
+                                __('Slug') . '(' . $language['native'] . ')',
+                                __('Enter Slug'),
+                                'heroicon-m-language'
+                            )->maxLength(50),
+
+
+                            InputsTrait::input($locale . '.short_descreption', __('Short Descreption') . ' (' . $language['native'] . ')'),
+
+                            InputsTrait::markEditor($locale . '.descreption', __('Descreption') . ' (' . $language['native'] . ')'),
+
+                            InputsTrait::select('tag_id', __('Tags'), 'tags', 'name')->options(Tag::all()->pluck('name:' . $locale, 'id'))->multiple(),
+                            //
+                            InputsTrait::tags($locale . '.meta_keywords', __('Meta keywords') . ' (' . $language['native'] . ')'),
+                        ]),
+                        // ->separator(',')
+                        LaravelLocalization::getLocalesOrder(),
+                        array_keys(LaravelLocalization::getLocalesOrder())
+                    )),
+
+
+                // InputsTrait::select('author_id', __('Authors'), 'authors', 'name'),
+
+
+            ])->columns(2),
+
         ];
     }
 }
