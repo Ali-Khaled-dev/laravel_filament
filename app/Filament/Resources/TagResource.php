@@ -44,9 +44,10 @@ class TagResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
-                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->title),
+                    Tables\Actions\ForceDeleteAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->title),
+                    Tables\Actions\RestoreAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->title),
+                    Tables\Actions\ViewAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->title),
                 ]),
             ])
             ->bulkActions([
