@@ -1,12 +1,25 @@
 models:
-  Grid:
-    id: id
+  Author:
     name: string
-    created_at: timestamp
-    updated_at: timestamp
+    job: string
+    meta_descreption: string
 
-  Widget:
+  Slug:
+    slug: string
+
+  SlugTranslation:
     id: id
+    title: string
+  Tag:
     name: string
-    created_at: timestamp
-    updated_at: timestamp
+
+  Artical:
+    title: string
+    relationships:
+      hasMany: Tag, Author
+      hasOne: Slug
+    short_descreption: string
+    descreption: string
+    meta_keyword: string
+    tag_id: foreign
+    author_id: foreign

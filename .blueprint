@@ -1,19 +1,25 @@
 created:
-    - database/factories/GridFactory.php
-    - database/factories/WidgetFactory.php
-    - database/migrations/2024_06_09_122009_create_grids_table.php
-    - database/migrations/2024_06_09_122010_create_widgets_table.php
-    - app/Models/Grid.php
-    - app/Models/Widget.php
+    - database/factories/AuthorFactory.php
+    - database/factories/SlugFactory.php
+    - database/factories/SlugTranslationFactory.php
+    - database/factories/TagFactory.php
+    - database/factories/ArticalFactory.php
+    - database/migrations/2024_07_04_143516_create_authors_table.php
+    - database/migrations/2024_07_04_143517_create_slugs_table.php
+    - database/migrations/2024_07_04_143518_create_slug_translations_table.php
+    - database/migrations/2024_07_04_143519_create_tags_table.php
+    - database/migrations/2024_07_04_143520_create_articals_table.php
+    - app/Models/Author.php
+    - app/Models/Slug.php
+    - app/Models/SlugTranslation.php
+    - app/Models/Tag.php
+    - app/Models/Artical.php
 models:
-    Artical: { name: string, job: string }
     Category: { slug: 'string nullable' }
     CategoryTranslation: { category_id: 'biginteger unsigned', locale: string, name: string }
-    Comment: { user_id: 'biginteger unsigned', commentable_type: string, commentable_id: 'biginteger unsigned', comment: string }
-    Post: { thumbanil: 'string nullable', slug: string, tags: 'text nullable', published: boolean }
-    PostTranslation: { post_id: 'biginteger unsigned', locale: string, title: string, content: text }
-    Review: { post_id: 'biginteger unsigned', review: integer }
-    Slug: { votes: 'biginteger nullable', photo: binary, category_id: 'biginteger unsigned', slug: string }
     User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
-    Widget: { id: id, name: string, created_at: timestamp, updated_at: timestamp }
-    Grid: { id: id, name: string, created_at: timestamp, updated_at: timestamp }
+    Author: { name: string, job: string, meta_descreption: string }
+    Slug: { slug: string }
+    SlugTranslation: { id: id, title: string }
+    Tag: { name: string }
+    Artical: { title: string, relationships: { hasMany: 'Tag, Author', hasOne: Slug }, short_descreption: string, descreption: string, meta_keyword: string, tag_id: foreign, author_id: foreign }

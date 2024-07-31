@@ -1,48 +1,59 @@
 resources:
-  Widget:
-    model: Widget
-    navigation_icon: heroicon-o-cube
+  Tag:
+    model: Tag
+    navigation_icon: heroicon-o-tag
     form:
       schema:
     table:
       columns:
         - type: TextColumn
           name: id
-          sortable: true
-          searchable: true
         - type: TextColumn
           name: name
-          sortable: true
-          searchable: true
     relations: []
     pages:
       - name: List
-        icon: heroicon-o-view-list
       - name: Create
-        icon: heroicon-o-plus
       - name: Edit
-        icon: heroicon-o-pencil
 
-  Grid:
-    model: Grid
-    navigation_icon: heroicon-o-cube
-    form:
-      schema:
-    table:
-      columns:
-        - type: TextColumn
-          name: id
-          sortable: true
-          searchable: true
-        - type: TextColumn
-          name: name
-          sortable: true
-          searchable: true
-    relations: []
-    pages:
-      - name: List
-        icon: heroicon-o-view-list
-      - name: Create
-        icon: heroicon-o-plus
-      - name: Edit
-        icon: heroicon-o-pencil
+  # Slug:
+  #   model: Slug
+  #   navigation_icon: heroicon-o-cube
+  #   form:
+  #     schema:
+  #   table:
+  #     columns:
+  #       - type: TextColumn
+  #         name: id
+  #       - type: TextColumn
+  #         name: title
+  #       - type: TextColumn
+  #         name: slug
+  #   relations: []
+  #   pages:
+  #     - name: List
+  #       icon: heroicon-o-view-list
+  #     - name: Create
+  #       icon: heroicon-o-plus
+  #     - name: Edit
+  #       icon: heroicon-o-pencil
+
+  # Artical:
+  #   model: Artical
+  #   navigation_icon: heroicon-o-cube
+  #   form:
+  #     schema:
+  #   table:
+  #     columns:
+  #       - type: TextColumn
+  #         name: id
+  #       - type: TextColumn
+  #         name: title
+  #   relations: []
+  #   pages:
+  #     - name: List
+  #       icon: heroicon-o-view-list
+  #     - name: Create
+  #       icon: heroicon-o-plus
+  #     - name: Edit
+  #       icon: heroicon-o-pencil
