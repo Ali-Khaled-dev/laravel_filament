@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
             'email' => 'a@gmail.com',
             'password' => Hash::make('123456'),
 
-        ])->assignRole('super_admin');
+        ])->syncRoles('super_admin');
 
         User::create([
             'name' => 'mohamad mohamad',
             'email' => 'm@gmail.com',
             'password' => Hash::make('123456'),
 
-        ])->assignRole('panel_userer');
+        ])->syncRoles('panel_user');
     }
 }
