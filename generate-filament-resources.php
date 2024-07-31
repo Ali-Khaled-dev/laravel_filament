@@ -1,5 +1,7 @@
 <?php
 
+// For apply this code Use: php generate-filament-resources.php
+
 require 'vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
@@ -11,7 +13,6 @@ function generateResource($resourceName, $resourceConfig)
 {
     $model = $resourceConfig['model'];
     $navigationIcon = $resourceConfig['navigation_icon'];
-    // $formSchema = $resourceConfig['form']['schema'];
     $tableColumns = $resourceConfig['table']['columns'];
     $pages = $resourceConfig['pages'];
 
@@ -52,11 +53,27 @@ class {$resourceName}Resource extends Resource
     foreach ($tableColumns as $column) {
         $resourceClassContent .= "
                 Tables\Columns\\{$column['type']}::make('{$column['name']}')
-                    ->sortable({$column['sortable']})
-                    ->searchable({$column['searchable']}),";
+                    ->sortable()
+                    ->searchable(),";
     }
 
     $resourceClassContent .= "
+
+            ])
+        ->filters([
+                //
+            ])
+        ->actions([
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                ]),
+            ])
+      ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ])
             ]);
     }
 
@@ -68,11 +85,27 @@ class {$resourceName}Resource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\\List{$resourceName}::route('/'),
+            'index' => Pages\\List{$resourceName}s::route('/'),
             'create' => Pages\\Create{$resourceName}::route('/create'),
             'edit' => Pages\\Edit{$resourceName}::route('/{record}/edit'),
         ];
     }
+
+        public static function getPluralModelLabel(): string
+    {
+        return __('{$model}s');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('{$model}');
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return {$model}::count();
+    }
+
 }";
 
 
@@ -91,7 +124,30 @@ class {$resourceName}Resource extends Resource
 
 
     foreach ($pages as $page) {
-        $pageClassContent = "<?php
+        if ($page['name'] === 'List') {
+            $pageClassContent = "<?php
+
+namespace App\Filament\Resources\\{$resourceName}Resource\Pages;
+
+use App\Filament\Resources\\{$resourceName}Resource;
+use Filament\Resources\Pages\\" . ucfirst($page['name']) . "Records;
+use Filament\Actions;
+
+
+class " . ucfirst($page['name']) . "{$resourceName}s extends " . ucfirst($page['name']) . "Records
+{
+    protected static string \$resource = {$resourceName}Resource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
+        ];
+    }
+}
+";
+        } else {
+            $pageClassContent = "<?php
 
 namespace App\Filament\Resources\\{$resourceName}Resource\Pages;
 
@@ -104,10 +160,12 @@ class " . ucfirst($page['name']) . "{$resourceName} extends " . ucfirst($page['n
     protected static string \$resource = {$resourceName}Resource::class;
 }
 ";
-
-
-
-        file_put_contents("{$pageDir}/Pages/" . ucfirst($page['name']) . "{$model}.php", $pageClassContent);
+        }
+        if ($page['name'] === 'List') {
+            file_put_contents("{$pageDir}/Pages/" . ucfirst($page['name']) . "{$model}s.php", $pageClassContent);
+        } else {
+            file_put_contents("{$pageDir}/Pages/" . ucfirst($page['name']) . "{$model}.php", $pageClassContent);
+        }
     }
 }
 
