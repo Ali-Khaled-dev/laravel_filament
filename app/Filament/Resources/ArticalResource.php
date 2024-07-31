@@ -32,12 +32,15 @@ class ArticalResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('title')
+                    ->label(__('Title'))
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('meta_keywords')
+                    ->label(__('Meta Keywords'))
                     ->sortable()
                     ->searchable(),
 
