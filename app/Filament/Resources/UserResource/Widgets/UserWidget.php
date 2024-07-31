@@ -14,10 +14,8 @@ class UserWidget extends BaseWidget
     {
         return [
 
-        Stat::make('Users',User::count())->label(__('Users'))->chart([0,User::count(),0,User::count()])->color('info'),
-        Stat::make('Slugs',Slug::count())->label(__('Slugs'))->chart([0,Slug::count(),0,Slug::count()])->color('info'),
-        Stat::make('Review',Review::count())->label(__('Reviews'))->chart([0,Review::count(),5,Review::count(),0])->color('info'),
-       
-    ];
+            Stat::make('Users', User::count())->label(__('Users'))->chart([0, User::count(), 0, User::count()])->color('info'),
+
+        ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Filament\Resources;
+
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
@@ -20,7 +21,7 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form ->schema(User::getForm());
+        return $form->schema(User::getForm());
     }
 
     public static function table(Table $table): Table
@@ -28,26 +29,27 @@ class UserResource extends Resource
         return $table
 
             ->columns([
-              TextColumn::make('id')
-              ->label('#'),
+                TextColumn::make('id')
+                    ->label('#'),
 
-              TextColumn::make('name')
-              ->translateLabel(),
+                TextColumn::make('name')
+                    ->translateLabel(),
 
-              TextColumn::make('email'),
+                TextColumn::make('email')
+                    ->label(__('Email')),
 
-              TextColumn::make('roles.name')
-              ->translateLabel()
-              ->formatStateUsing(fn ($state): string => Str::headline($state))
-              ->badge()
-              ->color(fn (string $state): string => match ($state) {
-                'panel_user' => 'warning',
-                'super_admin' => 'success',
-            }),
+                TextColumn::make('roles.name')
+                ->label(__('Roles'))
+                    ->formatStateUsing(fn ($state): string => Str::headline($state))
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'panel_user' => 'warning',
+                        'super_admin' => 'success',
+                    }),
 
-             TextColumn::make('created_at')
-             ->label(__('Date'))
-             ->date(),
+                TextColumn::make('created_at')
+                    ->label(__('Date'))
+                    ->date(),
 
             ])
             ->filters([
@@ -55,11 +57,11 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ViewAction::make(),
 
-        ]),
+                ]),
 
             ])
             ->bulkActions([
@@ -107,7 +109,5 @@ class UserResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return User::count();
-
     }
-
 }

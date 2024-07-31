@@ -9,6 +9,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -19,7 +20,6 @@ class CategoryResource extends Resource
     {
 
         return  $form->schema(Category::getForm());
-
     }
 
     public static function table(Table $table): Table
@@ -27,10 +27,10 @@ class CategoryResource extends Resource
         return $table
             ->columns([
 
-                    TextColumn::make('name')
+                TextColumn::make('name')
                     ->translateLabel(),
 
-                    TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->label(__('Date')),
 
@@ -40,7 +40,7 @@ class CategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->name ),
+                Tables\Actions\DeleteAction::make()->modalHeading(fn ($record) => $record->translateOrDefault()?->name),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -78,7 +78,5 @@ class CategoryResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return Category::count();
-
     }
-
 }
