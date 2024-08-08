@@ -35,7 +35,7 @@ class ArticalResource extends Resource
                     ->label(__('Title'))
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('slug')
+                TextColumn::make('tags.name')
                     ->label(__('Slug'))
                     ->sortable()
                     ->searchable(),

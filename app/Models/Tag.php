@@ -20,9 +20,7 @@ class Tag extends Model implements TranslatableContract
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+
     public $translatedAttributes = ['name'];
     /**
      * The attributes that should be cast to native types.
@@ -35,7 +33,7 @@ class Tag extends Model implements TranslatableContract
 
     public function articals()
     {
-        return $this->belongsToMany(Artical::class, 'artical_author');
+        return $this->belongsToMany(Artical::class, 'artical_tag');
     }
 
     public static function getForm()

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticalContller;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -26,7 +28,8 @@ Livewire::setUpdateRoute(function ($handle) {
         ]);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 
+Route::get('/', [ArticalContller::class,'index']);

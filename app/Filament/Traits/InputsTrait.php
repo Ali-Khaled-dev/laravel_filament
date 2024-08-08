@@ -58,10 +58,10 @@ trait InputsTrait
 
         return  Select::make($make)
             ->label($label)
-            ->relationship($relation_name, $relation_column)
+            // ->relationship($relation_name, $relation_column)
             ->searchable()
             ->optionsLimit(3)
-            // ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck($relation_column, 'id')->toArray())
+            ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck('name', 'id')->toArray())
             ->preload()
             ->required()
             ->validationMessages([
