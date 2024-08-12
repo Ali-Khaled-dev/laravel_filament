@@ -8,9 +8,9 @@ use App\Models\Artical;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 
 
 class ArticalResource extends Resource
@@ -29,21 +29,21 @@ class ArticalResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')
+                    ->label('#')
                     ->sortable()
                     ->searchable(),
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->label(__('Image'))
+                    ->conversion('public')
+                    ->collection('articals')
+                    ->square()
+                    ->height(75),
                 TextColumn::make('title')
                     ->label(__('Title'))
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('tags.name')
-                    ->label(__('Slug'))
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('meta_keywords')
-                    ->label(__('Meta Keywords'))
-                    ->sortable()
-                    ->searchable(),
-
+                TextColumn::make('authors.name')->label(__('Author')),
+                TextColumn::make('created_at')->label(__('Date'))->date()
 
 
             ])

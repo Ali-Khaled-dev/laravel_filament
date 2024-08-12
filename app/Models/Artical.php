@@ -9,10 +9,9 @@ use App\Filament\Traits\InputsTrait;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Set;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Spatie\Image\Manipulations;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -96,10 +95,10 @@ class Artical extends Model implements TranslatableContract, HasMedia
     {
         return [
             Section::make()->schema([
-                // InputsTrait::imageUpload('articals'),
+                InputsTrait::imageUpload('articals'),
                 Tabs::make('Tabs')
-                    ->tabs(fn () => array_map(
-                        fn ($language, $locale) => Tabs\Tab::make($language['native'])->schema([
+                    ->tabs(fn() => array_map(
+                        fn($language, $locale) => Tabs\Tab::make($language['native'])->schema([
 
                             InputsTrait::input(
                                 $locale . '.title',

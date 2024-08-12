@@ -31,8 +31,8 @@ trait InputsTrait
             ->panelAspectRatio('1:1')
             ->panelLayout('compact')
             ->conversion('thumb')
-            ->required()
-
+            ->required()->columns(2)
+            ->imagePreviewHeight(75)
             ->validationMessages([
                 'required' => __('The :attribute required.'),
             ])
@@ -61,13 +61,13 @@ trait InputsTrait
             // ->relationship($relation_name, $relation_column)
             ->searchable()
             ->optionsLimit(3)
-            ->getOptionLabelsUsing(fn (array $values): array => $this::whereIn('id', $values)->pluck('name', 'id')->toArray())
+            ->getOptionLabelsUsing(fn(array $values): array => $this::whereIn('id', $values)->pluck('name', 'id')->toArray())
             ->preload()
             ->required()
             ->validationMessages([
                 'required' => __('The :attribute required.'),
             ])->createOptionAction(
-                fn (Action $action) => $action->modalWidth('3xl')
+                fn(Action $action) => $action->modalWidth('3xl')
             )
 
             ->createOptionForm(
