@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('category_translation', function (Blueprint $table) {
-            $table->string('meta_descreption');
+            $table->json('meta_descreption');
             $table->string('slug');
             $table->json('meta_keywords');
         });
@@ -24,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('category_translation', function (Blueprint $table) {
-            //
+            $table->dropColumn('meta_descreption');
+            $table->dropColumn('slug');
+            $table->dropColumn('meta_keywords');
         });
     }
 };

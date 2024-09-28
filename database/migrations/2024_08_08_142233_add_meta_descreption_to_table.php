@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('artical_translation', function (Blueprint $table) {
-            $table->string('meta_descreption');
+            $table->json('meta_descreption');
+            $table->dropColumn('meta_keywords');
         });
     }
 
