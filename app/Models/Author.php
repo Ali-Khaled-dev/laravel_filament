@@ -83,10 +83,18 @@ class Author extends Model implements HasMedia
         return [
             Section::make()
                 ->schema([
-                    InputsTrait::imageUpload('authors'),
-                    InputsTrait::input('name', __('Name')),
-                    InputsTrait::input('meta_descreption', __('Meta Descreption')),
-                ])->columns(2),
+                    Section::make('')->schema([
+
+                        InputsTrait::input('name', __('Name')),
+                        InputsTrait::input('meta_descreption', __('Meta Descreption')),
+
+                    ])->columnSpan(2),
+
+                    Section::make()->schema([
+                        InputsTrait::imageUpload('authors'),
+                    ])->columnSpan(1),
+                ])->columns(3),
+
         ];
     }
 }
