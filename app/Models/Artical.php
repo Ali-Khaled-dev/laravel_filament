@@ -31,13 +31,12 @@ class Artical extends Model implements TranslatableContract, HasMedia
         'slug',
         'short_descreption',
         'descreption',
-        'meta_keywords',
+        'meta_descreption',
     ];
 
 
     protected $casts = [
         'id' => 'integer',
-        'meta_keywords' => 'array',
         'tag_id' => 'array'
 
     ];
@@ -95,7 +94,7 @@ class Artical extends Model implements TranslatableContract, HasMedia
     {
         return [
             Section::make()->schema([
-                InputsTrait::imageUpload('articals'),
+
                 Tabs::make('Tabs')
                     ->tabs(fn() => array_map(
                         fn($language, $locale) => Tabs\Tab::make($language['native'])->schema([
@@ -116,27 +115,31 @@ class Artical extends Model implements TranslatableContract, HasMedia
                                 __('Slug') . '(' . $language['native'] . ')',
                                 __('Enter Slug'),
                                 'heroicon-m-language'
-                            )->maxLength(50),
-
+                            )->readOnly(),
 
                             InputsTrait::input($locale . '.short_descreption', __('Short Descreption') . ' (' . $language['native'] . ')'),
 
-                            InputsTrait::markEditor($locale . '.descreption', __('Descreption') . ' (' . $language['native'] . ')'),
-
                             InputsTrait::select('tag_id', __('Tags'))->relationship('tags', 'name')->options(Tag::all()->pluck('name:' . $locale, 'id'))->multiple(),
-                            //
-                            InputsTrait::tags($locale . '.meta_keywords', __('Meta keywords') . ' (' . $language['native'] . ')'),
-                        ]),
+
+                            InputsTrait::tags($locale . '.meta_descreption', __('Meta Descreption') . ' (' . $language['native'] . ')'),
+
+                            InputsTrait::markEditor($locale . '.descreption', __('Descreption') . ' (' . $language['native'] . ')')->columnSpanFull(),
+                        ])->columns(2),
 
                         LaravelLocalization::getLocalesOrder(),
                         array_keys(LaravelLocalization::getLocalesOrder())
-                    )),
+                    ))->columnSpan(4),
+                Section::make('')->schema(
+                    [
+                        InputsTrait::imageUpload('articals'),
+                        InputsTrait::select('authors', __('Authors'))->relationship('authors', 'name')->options(Author::all()->pluck('name', 'id')),
+
+                    ],
+
+                )->columnSpan(2),
 
 
-                InputsTrait::select('authors', __('Authors'))->relationship('authors', 'name')->options(Author::all()->pluck('name', 'id')),
-
-
-            ])->columns(2),
+            ])->columns(6),
 
         ];
     }
