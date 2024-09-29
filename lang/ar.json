@@ -53,11 +53,13 @@
     "Enter Job": "ادخل الوظيفة",
     "Articals": "المقالات",
     "Artical": "مقالة",
-    "Meta Descreption": "الوصف",
-    "Short Descreption": "وصف قصير",
+    "Meta Descreption": "الوصف التعريفي",
     "Profile": "الملف الشخصي",
+    "Short Descreption": "وصف قصير",
     "Login": "تسجيل الدخول",
     "Blog": "الموقع",
     "About Us": "عن الموقع",
-    "Contact Us": "اتصل بنا"
+    "Contact Us": "اتصل بنا",
+    "Descreption": "الوصف",
+    "Meta KeyWords": "كلمات مفتاحية"
 }
