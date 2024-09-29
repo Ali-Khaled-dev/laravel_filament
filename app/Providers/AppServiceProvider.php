@@ -27,10 +27,10 @@ class AppServiceProvider extends ServiceProvider
                 ->locales(['ar','en'])
                 ->circular()
                 ->flags([
-                    'ar' => asset('flags/EG.png'),     
+                    'ar' => asset('flags/EG.png'),
                     'en' => asset('flags/US.png'),
-                ]); 
+                ]);
         });  
-    
+
     }
 }
