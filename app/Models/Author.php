@@ -34,9 +34,9 @@ class Author extends Model implements HasMedia
         'id' => 'integer',
     ];
 
-    public function articals()
+    public function articles()
     {
-        return $this->belongsToMany(Article::class, 'artical_author');
+        return $this->belongsToMany(Article::class, 'article_author', 'author_id', 'article_id');
     }
 
     public function registerMediaConversions(Media $media = null): void

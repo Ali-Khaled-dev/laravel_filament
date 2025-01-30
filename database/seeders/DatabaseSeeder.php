@@ -15,5 +15,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ShieldSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(AuthorSeeder::class);
+        $this->call(ArticleSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(TagSeeder::class);
     }
 }
