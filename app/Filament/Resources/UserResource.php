@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Widgets\BlogPostsChart;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Forms\Form;
@@ -39,10 +40,10 @@ class UserResource extends Resource
                     ->label(__('Email')),
 
                 TextColumn::make('roles.name')
-                ->label(__('Roles'))
-                    ->formatStateUsing(fn ($state): string => Str::headline($state))
+                    ->label(__('Roles'))
+                    ->formatStateUsing(fn($state): string => Str::headline($state))
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'panel_user' => 'warning',
                         'super_admin' => 'success',
                     }),
@@ -77,7 +78,18 @@ class UserResource extends Resource
             //
         ];
     }
-
+    // protected function getHeaderWidgets(): array
+    // {
+    //     return [
+    //         BlogPostsChart::class
+    //     ];
+    // }
+    // public static function getWidgets(): array
+    // {
+    //     return [
+    //         BlogPostsChart::class,
+    //     ];
+    // }
     public static function getPages(): array
     {
         return [
