@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Slug;
+use App\Models\Tag;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SlugPolicy
+class TagPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class SlugPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_slug');
+        return $user->can('view_any_tag');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function view(User $user, Slug $slug): bool
+    public function view(User $user, Tag $tag): bool
     {
-        return $user->can('view_slug');
+        return $user->can('view_tag');
     }
 
     /**
@@ -41,31 +41,31 @@ class SlugPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_slug');
+        return $user->can('create_tag');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function update(User $user, Slug $slug): bool
+    public function update(User $user, Tag $tag): bool
     {
-        return $user->can('update_slug');
+        return $user->can('update_tag');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function delete(User $user, Slug $slug): bool
+    public function delete(User $user, Tag $tag): bool
     {
-        return $user->can('delete_slug');
+        return $user->can('delete_tag');
     }
 
     /**
@@ -76,19 +76,19 @@ class SlugPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_slug');
+        return $user->can('delete_any_tag');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function forceDelete(User $user, Slug $slug): bool
+    public function forceDelete(User $user, Tag $tag): bool
     {
-        return $user->can('force_delete_slug');
+        return $user->can('force_delete_tag');
     }
 
     /**
@@ -99,19 +99,19 @@ class SlugPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_slug');
+        return $user->can('force_delete_any_tag');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function restore(User $user, Slug $slug): bool
+    public function restore(User $user, Tag $tag): bool
     {
-        return $user->can('restore_slug');
+        return $user->can('restore_tag');
     }
 
     /**
@@ -122,19 +122,19 @@ class SlugPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_slug');
+        return $user->can('restore_any_tag');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slug  $slug
+     * @param  \App\Models\Tag  $tag
      * @return bool
      */
-    public function replicate(User $user, Slug $slug): bool
+    public function replicate(User $user, Tag $tag): bool
     {
-        return $user->can('replicate_slug');
+        return $user->can('replicate_tag');
     }
 
     /**
@@ -145,7 +145,7 @@ class SlugPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_slug');
+        return $user->can('reorder_tag');
     }
 
 }

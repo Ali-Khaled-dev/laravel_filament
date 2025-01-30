@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Post;
+use App\Models\Author;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostPolicy
+class AuthorPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class PostPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_post');
+        return $user->can('view_any_author');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function view(User $user, Post $post): bool
+    public function view(User $user, Author $author): bool
     {
-        return $user->can('view_post');
+        return $user->can('view_author');
     }
 
     /**
@@ -41,31 +41,31 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_post');
+        return $user->can('create_author');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function update(User $user, Post $post): bool
+    public function update(User $user, Author $author): bool
     {
-        return $user->can('update_post');
+        return $user->can('update_author');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function delete(User $user, Post $post): bool
+    public function delete(User $user, Author $author): bool
     {
-        return $user->can('delete_post');
+        return $user->can('delete_author');
     }
 
     /**
@@ -76,19 +76,19 @@ class PostPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_post');
+        return $user->can('delete_any_author');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function forceDelete(User $user, Post $post): bool
+    public function forceDelete(User $user, Author $author): bool
     {
-        return $user->can('force_delete_post');
+        return $user->can('force_delete_author');
     }
 
     /**
@@ -99,19 +99,19 @@ class PostPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_post');
+        return $user->can('force_delete_any_author');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function restore(User $user, Post $post): bool
+    public function restore(User $user, Author $author): bool
     {
-        return $user->can('restore_post');
+        return $user->can('restore_author');
     }
 
     /**
@@ -122,19 +122,19 @@ class PostPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_post');
+        return $user->can('restore_any_author');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Author  $author
      * @return bool
      */
-    public function replicate(User $user, Post $post): bool
+    public function replicate(User $user, Author $author): bool
     {
-        return $user->can('replicate_post');
+        return $user->can('replicate_author');
     }
 
     /**
@@ -145,7 +145,7 @@ class PostPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_post');
+        return $user->can('reorder_author');
     }
 
 }

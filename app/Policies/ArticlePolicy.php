@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Comment;
+use App\Models\Article;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CommentPolicy
+class ArticlePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class CommentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_comment');
+        return $user->can('view_any_article');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function view(User $user, Comment $comment): bool
+    public function view(User $user, Article $article): bool
     {
-        return $user->can('view_comment');
+        return $user->can('view_article');
     }
 
     /**
@@ -41,31 +41,31 @@ class CommentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_comment');
+        return $user->can('create_article');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function update(User $user, Comment $comment): bool
+    public function update(User $user, Article $article): bool
     {
-        return $user->can('update_comment');
+        return $user->can('update_article');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function delete(User $user, Comment $comment): bool
+    public function delete(User $user, Article $article): bool
     {
-        return $user->can('delete_comment');
+        return $user->can('delete_article');
     }
 
     /**
@@ -76,19 +76,19 @@ class CommentPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_comment');
+        return $user->can('delete_any_article');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function forceDelete(User $user, Comment $comment): bool
+    public function forceDelete(User $user, Article $article): bool
     {
-        return $user->can('force_delete_comment');
+        return $user->can('force_delete_article');
     }
 
     /**
@@ -99,19 +99,19 @@ class CommentPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_comment');
+        return $user->can('force_delete_any_article');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function restore(User $user, Comment $comment): bool
+    public function restore(User $user, Article $article): bool
     {
-        return $user->can('restore_comment');
+        return $user->can('restore_article');
     }
 
     /**
@@ -122,19 +122,19 @@ class CommentPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_comment');
+        return $user->can('restore_any_article');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Comment  $comment
+     * @param  \App\Models\Article  $article
      * @return bool
      */
-    public function replicate(User $user, Comment $comment): bool
+    public function replicate(User $user, Article $article): bool
     {
-        return $user->can('replicate_comment');
+        return $user->can('replicate_article');
     }
 
     /**
@@ -145,7 +145,7 @@ class CommentPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_comment');
+        return $user->can('reorder_article');
     }
 
 }
