@@ -86,11 +86,11 @@ class Article extends Model implements TranslatableContract, HasMedia
 
     public function authors()
     {
-        return $this->belongsToMany(Author::class, 'article_author', 'author_id');
+        return $this->belongsToMany(Author::class, 'article_author', 'article_id', 'author_id');
     }
     public function Categories()
     {
-        return $this->belongsToMany(Category::class, 'category_artical');
+        return $this->belongsToMany(Category::class, 'category_article');
     }
 
 
