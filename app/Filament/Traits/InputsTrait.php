@@ -31,7 +31,8 @@ trait InputsTrait
             ->panelAspectRatio('1:1')
             ->panelLayout('compact')
             ->conversion('thumb')
-            ->required()->columns(2)
+            // ->required()
+            ->columns(2)
             ->imagePreviewHeight(75)
             ->validationMessages([
                 'required' => __('The :attribute required.'),
