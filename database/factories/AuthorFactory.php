@@ -22,7 +22,6 @@ class AuthorFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'job' => $this->faker->word(),
             'meta_descreption' => $this->faker->word(),
         ];
     }
