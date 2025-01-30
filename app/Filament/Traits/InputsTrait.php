@@ -53,7 +53,7 @@ trait InputsTrait
             ]);
     }
 
-    public static function select(string $make, $label = null, string $relation_name = null, string $relation_column = null)
+    public static function select(string $make, $label = null, $model = null)
     {
 
         return  Select::make($make)
@@ -70,13 +70,13 @@ trait InputsTrait
                 fn(Action $action) => $action->modalWidth('3xl')
             )
 
-            ->createOptionForm(
-                [
 
-                    TextInput::make($make)->label($label)
-                        ->required(),
-                ]
-            );
+            ->createOptionForm(
+                $model,
+            )->createOptionUsing(function (array $data, $model) {
+                $models = $model::create($data);
+                return $models->id;
+            });
     }
 
 
