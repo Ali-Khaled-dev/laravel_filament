@@ -9,29 +9,29 @@ return new class extends Migration
     public function up(): void
     {
 
-        Schema::create('articals', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
-
             $table->timestamps();
         });
 
-        Schema::create('artical_translation', function (Blueprint $table) {
+        Schema::create('article_translation', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('artical_id');
+            $table->unsignedBigInteger('article_id');
             $table->string('locale');
             $table->string('title');
             $table->string('slug');
             $table->string('short_descreption');
             $table->text('descreption');
             $table->json('meta_keywords');
-            $table->unique(['locale', 'artical_id']);
-            $table->foreign('artical_id')->references('id')->on('articals')->onDelete('cascade');
+            $table->unique(['locale', 'article_id']);
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 
 
     public function down(): void
     {
-        Schema::dropIfExists('articals');
+        Schema::dropIfExists('articles');
+        Schema::dropIfExists('article_translation');
     }
 };

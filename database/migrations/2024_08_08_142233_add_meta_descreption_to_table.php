@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('artical_translation', function (Blueprint $table) {
+        Schema::table('article_translation', function (Blueprint $table) {
             $table->json('meta_descreption');
             $table->dropColumn('meta_keywords');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('artical_translation', function (Blueprint $table) {
+        Schema::table('article_translation', function (Blueprint $table) {
             $table->dropColumn('meta_descreption');
         });
     }

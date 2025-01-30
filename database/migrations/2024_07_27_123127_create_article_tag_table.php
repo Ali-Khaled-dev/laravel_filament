@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artical_tag', function (Blueprint $table) {
+        Schema::create('article_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('artical_id');
+            $table->unsignedBigInteger('article_id');
             $table->unsignedBigInteger('tag_id');
             $table->timestamps();
-            $table->foreign('artical_id')->references('id')->on('articals')->onDelete('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artical_tag');
+        Schema::dropIfExists('article_tag');
     }
 };

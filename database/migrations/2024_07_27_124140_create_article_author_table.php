@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artical_author', function (Blueprint $table) {
+        Schema::create('article_author', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('artical_id')->constrained()->onDelete('cascade');
+            $table->foreignId('article_id')->constrained()->onDelete('cascade');
             $table->foreignId('author_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artical_author');
+        Schema::dropIfExists('article_author');
     }
 };
