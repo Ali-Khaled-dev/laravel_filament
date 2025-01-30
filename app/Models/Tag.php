@@ -33,7 +33,7 @@ class Tag extends Model implements TranslatableContract
 
     public function articals()
     {
-        return $this->belongsToMany(Artical::class, 'artical_tag');
+        return $this->belongsToMany(Article::class, 'artical_tag');
     }
 
     public static function getForm()

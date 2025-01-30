@@ -16,7 +16,7 @@ class Category extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
-
+    public $fillable = [];
     public $translatedAttributes = [
         'locale',
         'name',
@@ -25,10 +25,10 @@ class Category extends Model implements TranslatableContract
         'meta_keywords',
     ];
 
-    public function articals()
+    public function articles()
     {
 
-        return $this->hasMany(Artical::class);
+        return $this->hasMany(Article::class);
     }
 
     public static function getForm()

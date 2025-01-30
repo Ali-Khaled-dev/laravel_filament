@@ -36,7 +36,7 @@ class Author extends Model implements HasMedia
 
     public function articals()
     {
-        return $this->belongsToMany(Artical::class, 'artical_author');
+        return $this->belongsToMany(Article::class, 'artical_author');
     }
 
     public function registerMediaConversions(Media $media = null): void
