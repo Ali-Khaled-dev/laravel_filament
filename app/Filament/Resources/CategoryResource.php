@@ -29,11 +29,7 @@ class CategoryResource extends Resource
 
                 TextColumn::make('name')
                     ->translateLabel(),
-                TextColumn::make('meta_keywords')
-                    ->label(__('Meta KeyWords'))
-                    ->badge()
-                    ->color('primary')
-                    ->translateLabel(),
+
                 TextColumn::make('created_at')
                     ->date()
                     ->label(__('Date')),
