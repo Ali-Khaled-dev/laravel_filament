@@ -12,18 +12,12 @@ class CategoryTranslation extends Model
     protected $fillable  = [
         'locale',
         'name',
-        'slug',
-        'meta_descreption',
-        'meta_keywords',
-        'category_id'
     ];
 
     public $table = 'category_translation';
 
     protected $casts = [
         'id' => 'integer',
-        'meta_descreption' => 'array',
-        'meta_keywords' => 'array',
     ];
 
     public $timestamps = false;

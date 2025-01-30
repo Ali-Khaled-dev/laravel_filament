@@ -20,9 +20,6 @@ class Category extends Model implements TranslatableContract
     public $translatedAttributes = [
         'locale',
         'name',
-        'slug',
-        'meta_descreption',
-        'meta_keywords',
     ];
 
     public function articles()
