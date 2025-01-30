@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleTranslation extends Model
 {
     use HasFactory;
-    public $table = 'artical_translation';
     protected $fillable = [
         'id',
         'title',
@@ -23,7 +22,5 @@ class ArticleTranslation extends Model
 
     protected $casts = [
         'meta_keywords' => 'array',
-        'meta_descreption' => 'array',
-
     ];
 }
