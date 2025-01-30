@@ -2,8 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\PostResource\Widgets\PostsWidget;
-use App\Filament\Resources\UserResource\Widgets\UserWidget;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -37,12 +35,9 @@ class AdminPanelProvider extends PanelProvider
             ->unsavedChangesAlerts()
             ->colors([
                 'primary' => Color::Lime,
-                'gray' => Color::Slate,
-                'info' =>Color::Blue,
-
+                'gray'    => Color::Slate,
+                'info'    => Color::Blue,
             ])
-
-            // ->spa()
             ->sidebarCollapsibleOnDesktop(true)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
 
@@ -51,10 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                PostsWidget::class,
-                UserWidget::class,
-            ])
+
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -75,10 +67,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
-                ->defaultLocales(['ar','en']),
+                    ->defaultLocales(['ar', 'en']),
                 FilamentShieldPlugin::make(),
             ]);
-
-
     }
 }
